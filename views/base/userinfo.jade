@@ -1,0 +1,109 @@
+ul#userinfo.fontInfoIcon
+  li
+    a(href="/u",title='个人中心') 
+      i(class="fi-thumbnails fontInfoIcon")
+  li
+    a(href="/u#/collectionsList",title='我的收藏')
+      i(class="fi-star fontInfoIcon")
+  li
+    a(href="/u/#shoppingCart",title='我的购物车')
+      i(class="fi-shopping-cart fontInfoIcon")
+  li
+    a(href="javascript:logout()",title='安全退出')
+      i(class="fi-power fontInfoIcon")
+
+div#userlogin(data-remodal-target="loginbox")
+  i(class="fi-thumbnails fontInfoIcon")
+
+div#loginbox.remodal(data-remodal-id="loginbox")
+  button.remodal-close#loginboxClose(data-remodal-action="close")
+  div.row
+    div.col-lg-8.col-lg-offset-2
+      div.row
+        lable.cLable.col-lg-4 用户名 ：
+        input.col-lg-8.colums#userName(name="userName",placeholder='请输入用户名')
+      div.row
+        lable.cLable.col-lg-4 密码 ：
+        input.col-lg-8#password(name="password",placeholder='请输入密码',type="password")
+      div.row#loginButtomGroup        
+        p.col-lg-2.col-lg-offset-7#registButton 注册
+        .col-lg-1
+        p.col-lg-2#loginButton 登陆
+        //- p.col-lg-12#loginMessage
+
+  script.
+    var isInitUserinfo=false;
+    $.get('/c/isLogin',function(data){
+      if(data.isLogin){
+        //用户已经登陆
+        $('#userlogin').hide();//移除点击弹出登陆框事件
+        initUserinfo();//初始化用户快捷菜单动画效果
+      }else{
+        //用户未登陆
+        console.log("登陆验证")
+      }
+    })
+    $("#loginButton").on('click',function(){
+        var userName = $('#userName').val(),password=$('#password').val();
+        if(userName==""||password==""){
+          return;
+        }
+        $.ajax({
+          type : "post", 
+          url : '/c/login',
+          data : "userName="+userName+"&password="+password,
+          success:function(data){
+            if(data.isLogin){//登陆成功
+              $('#loginboxClose').click();
+              $('#userlogin').hide();
+              initUserinfo();//初始化用户快捷菜单动画效果
+            }else{
+             $('#userName').val(data.message);
+            }
+          },
+          dataType: "json"
+        })
+    })
+    $("#registButton").on('click',function(){
+      window.location.href = window.location.origin+'/c/regist';
+    });
+
+    var initUserinfo = function(){
+      if(isInitUserinfo){
+        return;
+      }
+      isInitUserinfo=true;
+      var ul=$("#userinfo"),
+      li=$("#userinfo li"),
+      i=li.length,
+      n=i-1,
+      r=120;//控制弹出方向
+      li.on('click',function(event){
+        event.stopPropagation();
+      })
+      ul.click(function(){
+        $(this).toggleClass('active');
+        if($(this).hasClass('active')){
+          for(var a=0;a<i;a++){
+            li.eq(a).css({
+              'transition-delay':""+(50*a)+"ms",
+              '-webkit-transition-delay':""+(50*a)+"ms",
+              '-o-transition-delay':""+(50*a)+"ms",
+              'transform':"translate("+(-r*Math.cos(90/n*a*(Math.PI/180)))+"px,"+(r*Math.sin(90/n*a*(Math.PI/180)))+"px",
+              '-webkit-transform':"translate("+(-r*Math.cos(90/n*a*(Math.PI/180)))+"px,"+(r*Math.sin(90/n*a*(Math.PI/180)))+"px",
+              '-o-transform':"translate("+(-r*Math.cos(90/n*a*(Math.PI/180)))+"px,"+(r*Math.sin(90/n*a*(Math.PI/180)))+"px",
+              '-ms-transform':"translate("+(-r*Math.cos(90/n*a*(Math.PI/180)))+"px,"+(r*Math.sin(90/n*a*(Math.PI/180)))+"px"
+            });
+          }
+        }else{
+          li.removeAttr('style');
+        }
+      });
+    }
+    function logout(){
+      $.get('/c/logout',function(data){
+        if(!data.isLogin){
+          $('#userlogin').show();
+        }
+      })
+    }

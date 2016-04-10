@@ -1,0 +1,13 @@
+/*.c-small{
+	font-size: 50px;
+}
+.orbit-container{
+	overflow: hidden;
+	
+}*/
+body{
+  background-image: url(../images/bg.png);
+}
+.collected{
+  color: #c9ac0e;
+}

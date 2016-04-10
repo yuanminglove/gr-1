@@ -1,0 +1,28 @@
+extends layout
+
+block content
+  form(action='/c/regist',method='post')#registForm
+    div.row
+      br
+      div.col-lg-4.col-lg-offset-4
+        div.row
+          lable.cLable.col-lg-4 用户名 ：
+          input.col-lg-8.colums#userName(name="userName",placeholder='请输入用户名',value="#{user ? user.userName : ''}")
+        div.row
+          lable.cLable.col-lg-4 密码 ：
+          input.col-lg-8#password(name="password",placeholder='请输入密码',type="password",value="")
+        div.row
+          lable.cLable.col-lg-4 重复密码 ：
+          input.col-lg-8#password(name="rePW",placeholder='再次输入密码',type="password",value="")
+        div.row#loginButtomGroup        
+          p.col-lg-2#rb 返回
+          p.col-lg-3.col-lg-offset-7#registButton 确认注册
+        div.row
+          center.col-lg-12 #{message}
+  script.
+    $("#registButton").on('click',function(){
+      $('#registForm').submit();
+    })
+    $("#rb").on('click',function(){
+      window.history.go(-1);
+    })

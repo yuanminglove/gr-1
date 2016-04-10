@@ -1,0 +1,25 @@
+extends ./base/layout
+
+block content
+  include nav
+  #main-container.main-container
+      .main-container-inner
+        a#menu-toggler.menu-toggler(href='#')
+          span.menu-text
+
+        include menu
+
+        .main-content(ng-app='app')
+          include position
+          .page-content
+            .row
+              .col-xs-12(ui-view)
+                // PAGE CONTENT BEGINS
+                //- include
+                // PAGE CONTENT ENDS
+        // /.main-content
+      // /.main-container-inner
+    // /.main-container
+
+
+  

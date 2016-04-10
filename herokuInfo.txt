@@ -1,0 +1,4 @@
+F:\>heroku apps:create gr-1
+Creating gr-1... done, stack is cedar-14
+https://gr-1.herokuapp.com/ | https://git.heroku.com/gr-1.git
+

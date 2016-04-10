@@ -1,0 +1,118 @@
+<div class="row">
+  <div class="col-lg-12">
+    <div class="widget-box">
+      <div class="widget-header widget-header-flat">
+        <h4>{{controllerName}}</h4>
+        <div class="pull-right">
+          <a class="btn btn-info" href="javascript:history.go(-1);">
+            <i class="fi-burst-new"></i>
+            返回
+          </a>
+        </div>
+      </div>
+      <div class="widget-body">
+          <div class="widget-main">
+            <h5 class="header blue">
+              <div class="row">
+                <div class="col-lg-4">
+                  个人信息
+                </div>
+                <div class="col-lg-8">
+                  <button title="编辑个人信息" onclick="showInfoEdit()" class="btn btn-success btn-minier pull-right">
+                    <i class="icon-edit"></i>编辑</button>
+                </div>
+              </div>
+            </h5>
+            <div class="row">
+              <div class="col-lg-3">
+                用户名 ：{{user.userName}}
+              </div>
+            </div>
+            
+            <div class="hr hr-18 dotted hr-double"></div>
+            <h5 class="header blue">
+              <div class="row">
+                <div class="col-lg-4">
+                  收货地址
+                </div>
+                <div class="col-lg-8">
+                  <button title="新增收货地址" onclick="showAddAddress()" class="btn btn-success btn-minier pull-right">
+                    &nbsp;<i class="fi-page-add"></i> 新增</button>
+                </div>
+              </div>
+              
+            </h5>
+            <div id="addressForm" style="display:none">
+              <div class="well form-group">
+                <button title="取消" class="close red" onclick="hideAddAddress()">
+                  <i class="icon-remove"></i>
+                </button> 
+                <ul class="list-unstyled spaced">
+                  <li>
+                    <i class="icon-caret-right blue"></i>
+                    收货人姓名 ：<input ng-model="newAddress.receiverName" style="width:550px" type="text"/>
+                  </li>
+                  <li>
+                    <i class="icon-caret-right blue"></i>
+                    收货人地址 ：<input ng-model="newAddress.receiverAddress" style="width:550px" type="text"/>
+                  </li>
+                  <li>
+                    <i class="icon-caret-right blue"></i>
+                    联系　电话 ：<input ng-model="newAddress.receiverPhone" style="width:550px" type="text"/>
+                  </li>
+                </ul>
+                <button title="保存" class="close green" style="margin-top:-20px;" ng-click="addAddress()">
+                  <i class="icon-ok "></i>
+                </button> 
+                <!-- <br/> -->
+              </div>             
+            </div>
+            <div id="{{item._id}}" ng-repeat="item in address" class="well">
+              <button title="删除地址" class="close red" ng-click="removeAddAddress($event)" data-id="{{item._id}}">
+                <i class="icon-remove"></i>
+              </button> 
+              <ul class="list-unstyled spaced">
+                <li>
+                  <i class="icon-caret-right blue"></i>
+                  收货人姓名 ：{{item.receiverName}}
+                </li>
+                <li>
+                  <i class="icon-caret-right blue"></i>
+                  收货人地址 ：{{item.receiverAddress}}
+                </li>
+                <li>
+                  <i class="icon-caret-right blue"></i>
+                  联系　电话 ：{{item.receiverPhone}}
+                </li>
+              </ul>
+              <button ng-if="item.isDefault" class="close red" style="margin-top:-20px;">
+                <i class="icon-heart"></i>
+              </button> 
+              <button title="设置为默认收货地址" ng-if="!item.isDefault" class="close gray" style="margin-top:-20px;" ng-click="setDefaultAddress($event)" data-id="{{item._id}}">
+                <i class="icon-heart"></i>
+              </button> 
+            </div>
+          </div>                    
+      </div>
+    </div>
+  </div>
+</div>
+<script type="text/javascript">
+function showAddAddress(){
+  $("#addressForm input").prop('value', '')
+  $("#addressForm").show(200);
+};
+function hideAddAddress(){
+  $("#addressForm").hide(200);
+};
+function removeAddAddress(id){
+  $("#"+id).hide(200,function(){
+    $(this).remove();
+  });
+};
+function showInfoEdit(){
+  //显示个人信息成可编辑状态
+}
+
+
+</script>
