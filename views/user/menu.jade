@@ -1,0 +1,30 @@
+.row
+  .col-lg-12
+    .widget-box
+      .widget-header.widget-header-flat
+        h4 菜单
+      .widget-body
+        .widget-main
+          .accordion-style1.panel-group
+            a(href="#/selfInfo").btn.btn-white.block 个人资料
+            a(href="#/albumList",style="border-top:none").btn.btn-white.block 商品图册
+            .panel.panel-default(style="border-top:none")
+              .panel-heading
+                h4.panel-title
+                  button.btn.btn-white.block(data-toggle="collapse",href="#collapseOne",style="border:none;width:100%") 交易订单
+              .panel-collapse.collapse.collapse#collapseOne
+                a.btn.btn-light.block(style="border:none") 已完成订单
+                a.btn.btn-light.block(style="border:none",href="#/orderList") 未完成订单
+            a.btn.btn-white.block(style="border-top:none") 我的举报
+            .panel.panel-default(style="border-top:none")
+              .panel-heading
+                h4.panel-title
+                  button.btn.btn-white.block(data-toggle="collapse",href="#collapseTwo",style="border:none;width:100%") 商品管理
+              .panel-collapse.collapse.collapse#collapseTwo(style="border:none")
+                a.btn.btn-light.block(style="border-top:none",href="#/commoditAddPage") 商品发布
+                a.btn.btn-light.block(style="border-top:none",href="#/commoditsList") 商品维护
+                a.btn.btn-light.block(style="border-top:none",href="#") 商品订单
+            a.btn.btn-white.block(style="border-top:none",href="#/shoppingCart") 购物车
+            a.btn.btn-white.block(style="border-top:none",href="#/collectionsList") 我的收藏
+            a.btn.btn-white.block(style="border-top:none") 收支统计
+

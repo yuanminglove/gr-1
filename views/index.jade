@@ -1,0 +1,128 @@
+extends layout
+
+block content
+  include ./base/top
+  div
+    br
+    //- .row#a
+    //-   .col-lg-3 asd
+
+    //-   .col-lg-3 asd
+    //-   .col-lg-3 asd
+    //-   .col-lg-3 asd
+    //-   script.
+    //-     $('#a').pin()
+    .row
+      .col-lg-1 
+      .col-lg-10.remodal-bg
+        .row#content
+      .col-lg-1
+        include ./base/userinfo
+        //- button(data-remodal-target="modal") modal
+
+  div.remodal(data-remodal-id="modal")
+    span#detail(data-remodal-target="modal")
+    button.remodal-close(data-remodal-action="close")
+    div#detailContent
+    hr
+    //- button.remodal-cancel.left(data-remodal-action="cancel") 取消
+    //- button.remodal-confirm.right(data-remodal-action="condirm") 确认
+  br
+  br
+  br
+  br
+  br
+  br
+  br
+  br
+  br
+  br
+  br
+  br
+  br
+  br
+  br
+  br
+  br
+  br
+  br
+  br
+  br
+  br
+  br
+  br
+  br
+  br
+  br
+  br
+  br
+  br
+  br
+  br
+  br
+  br
+  br
+  br
+  br
+  br
+  br
+  br
+  br
+  br
+  br
+  br
+  br
+  br
+  br
+  br
+  br
+  script.
+    var pageSize = 100;
+    var currentPage = 0;
+    
+    $(function(){
+      $.get('/c/commoditsInfoByPage?pageSize='+pageSize+'&currentPage='+currentPage,function(data){
+        var items = data.items;
+        for(var i in items){
+          if(items[i].thumbnail[0]){
+            //- var html = '<div class="col-lg-3"><img class="col-lg-12" src="'+items[i].thumbnail[0]+'" /></div>'
+            var html = '<div class="col-lg-3 commoditList" ><figure class="effect-winston"><img height="100%" src="'+items[i].thumbnail[0]+'" alt=""><figcaption><h2>'+items[i].name+'</h2><p><a href="javascript:collect(\''+items[i]._id+'\');" ><i class="fi-star"></i></a><a href="#" target="_blank"><i class="fi-share"></i></a></p><a href="javascript:showDetail(\''+items[i]._id+'\');">查看更多</a></figcaption></figure></div>';
+
+            $('#content').append(html)
+          }          
+        }
+      })
+    });
+    function showDetail(id){
+      $.get('/c/commodit/'+id,function(data){
+        var commodit = data.item;
+
+        var thumbnails = '<div id="thumbnails" class="row">';
+        for(var t in commodit.thumbnail){
+          thumbnails += '<div onclick="changeThumbnail(\''+commodit.thumbnail[t]+'\')" class="col-lg-3"><img width="100%" src="'+commodit.thumbnail[t]+'"/></div>'
+        }
+        thumbnails += '</div>';
+
+        var html = '<h1>'+commodit.name+'<a href="javascript:createSingleOrder(\''+commodit._id+'\');" target="">购买</i></a></h1><div class="row"><div class="col-lg-12"><img id="thumbnail" width="100%" src=".'+commodit.thumbnail[0]+'"/></div>'+thumbnails+'</div>';
+        
+        html += '<hr/><div>'+commodit.describe+'</div>';
+        $("#detailContent").html(html);
+        $("#detail").click(); 
+      });
+    }
+    function changeThumbnail(src){
+      //变换商品展示大图
+      $("#thumbnail").prop("src",src);
+    }
+    function collect(id){
+      //加入收藏
+      $.get('/u/collect/'+id,function(data){
+        console.log(data);
+      })
+    }
+    function createSingleOrder(id){
+      $.get('/u/createSingleOrder?id='+id,function(data){
+        window.location.href = "/u#/order/"+data.orderId;
+      })
+    }
+  

@@ -1,0 +1,17 @@
+#breadcrumbs.breadcrumbs
+  script(type='text/javascript').
+    try{ace.settings.check('breadcrumbs' , 'fixed')}catch(e){}
+  ul.breadcrumb
+    li
+      i.icon-home.home-icon
+      a(href='#') Home
+    li
+      a(href='#') Other Pages
+    li.active Blank Page
+  // .breadcrumb
+  #nav-search.nav-search
+    form.form-search
+      span.input-icon
+        input#nav-search-input.nav-search-input(type='text', placeholder='Search ...', autocomplete='off')
+        i.icon-search.nav-search-icon
+  // #nav-search

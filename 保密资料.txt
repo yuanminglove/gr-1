@@ -1,0 +1,32 @@
+F:\>heroku apps:create gr-1
+Creating gr-1... done, stack is cedar-14
+https://gr-1.herokuapp.com/ | https://git.heroku.com/gr-1.git
+
+
+
+
+
+Making code changes
+
+Install the Git client for your operating system, and from your command line run
+
+git clone ssh://5709d5957628e152760000af@gr-chrisdong.rhcloud.com/~/git/gr.git/
+cd gr/
+
+This will create a folder with the source code of your application. After making a change, add, commit, and push your changes.
+
+git add .
+git commit -m 'My changes'
+git push
+
+When you push changes the OpenShift server will report back its status on deploying your code. The server will run any of your configured deploy hooks and then restart the application.
+
+
+
+MongoDB 2.4 database added.  Please make note of these credentials:
+
+   Root User:     admin
+   Root Password: eVn5YQhtSafY
+   Database Name: gr
+
+Connection URL: mongodb://$OPENSHIFT_MONGODB_DB_HOST:$OPENSHIFT_MONGODB_DB_PORT/
